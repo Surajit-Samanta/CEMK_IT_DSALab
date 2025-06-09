@@ -19,38 +19,20 @@ struct Node* createNode(int data) {
     return newNode;
 }
 
-// Function to display the linked list
-void display(struct Node *head) {
-    struct Node *current = head;
-    if (head == NULL) {
-        printf("List is empty\n");
-        return;
-    }
-    printf("Linked List: ");
-    while (current != NULL) {
-        printf("%d ", current->data);
-        current = current->next;
-    }
-    printf("\n");
-}
-
-// Function to search for an element in the list
-int searchElement(struct Node *head, int key) {
-    int position = 1;
+// Function to count the total number of elements in the list
+int countElements(struct Node *head) {
+    int count = 0;
     struct Node *current = head;
     while (current != NULL) {
-        if (current->data == key) {
-            return position;
-        }
+        count++;
         current = current->next;
-        position++;
     }
-    return -1; // Element not found
+    return count;
 }
 
 int main() {
     struct Node *head = NULL;
-    int n, data, key;
+    int n, data;
 
     // Input the number of elements in the list
     printf("Enter the number of elements in the list: ");
@@ -72,17 +54,9 @@ int main() {
         }
     }
 
-    // Input the element to search
-    printf("Enter the element to search: ");
-    scanf("%d", &key);
-
-    // Search for the element in the list
-    int position = searchElement(head, key);
-    if (position != -1) {
-        printf("Element found at position %d\n", position);
-    } else {
-        printf("Element not found in the list\n");
-    }
+    // Count the total number of elements in the list
+    int totalCount = countElements(head);
+    printf("Total number of elements in the list: %d\n", totalCount);
 
     return 0;
 }

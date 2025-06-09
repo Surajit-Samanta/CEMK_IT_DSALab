@@ -34,23 +34,26 @@ void display(struct Node *head) {
     printf("\n");
 }
 
-// Function to search for an element in the list
-int searchElement(struct Node *head, int key) {
-    int position = 1;
-    struct Node *current = head;
+// Function to find the minimum element in the list
+int findMinElement(struct Node *head) {
+    if (head == NULL) {
+        printf("List is empty\n");
+        return -1;
+    }
+    int min = head->data;
+    struct Node *current = head->next;
     while (current != NULL) {
-        if (current->data == key) {
-            return position;
+        if (current->data < min) {
+            min = current->data;
         }
         current = current->next;
-        position++;
     }
-    return -1; // Element not found
+    return min;
 }
 
 int main() {
     struct Node *head = NULL;
-    int n, data, key;
+    int n, data;
 
     // Input the number of elements in the list
     printf("Enter the number of elements in the list: ");
@@ -72,16 +75,10 @@ int main() {
         }
     }
 
-    // Input the element to search
-    printf("Enter the element to search: ");
-    scanf("%d", &key);
-
-    // Search for the element in the list
-    int position = searchElement(head, key);
-    if (position != -1) {
-        printf("Element found at position %d\n", position);
-    } else {
-        printf("Element not found in the list\n");
+    // Find the minimum element in the list
+    int minElement = findMinElement(head);
+    if (minElement != -1) {
+        printf("Minimum element in the list: %d\n", minElement);
     }
 
     return 0;

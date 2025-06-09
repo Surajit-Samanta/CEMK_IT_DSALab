@@ -34,23 +34,25 @@ void display(struct Node *head) {
     printf("\n");
 }
 
-// Function to search for an element in the list
-int searchElement(struct Node *head, int key) {
-    int position = 1;
+// Function to reverse the singly linked list
+struct Node* reverseList(struct Node *head) {
+    struct Node *prev = NULL;
     struct Node *current = head;
+    struct Node *next = NULL;
+    
     while (current != NULL) {
-        if (current->data == key) {
-            return position;
-        }
-        current = current->next;
-        position++;
+        next = current->next; // Store next node
+        current->next = prev; // Reverse current node's pointer
+        prev = current; // Move pointers one position ahead
+        current = next;
     }
-    return -1; // Element not found
+    head = prev; // Update head to the last node
+    return head;
 }
 
 int main() {
     struct Node *head = NULL;
-    int n, data, key;
+    int n, data;
 
     // Input the number of elements in the list
     printf("Enter the number of elements in the list: ");
@@ -72,17 +74,16 @@ int main() {
         }
     }
 
-    // Input the element to search
-    printf("Enter the element to search: ");
-    scanf("%d", &key);
+    // Display the original list
+    printf("Original ");
+    display(head);
 
-    // Search for the element in the list
-    int position = searchElement(head, key);
-    if (position != -1) {
-        printf("Element found at position %d\n", position);
-    } else {
-        printf("Element not found in the list\n");
-    }
+    // Reverse the list
+    head = reverseList(head);
+
+    // Display the reversed list
+    printf("Reversed ");
+    display(head);
 
     return 0;
 }

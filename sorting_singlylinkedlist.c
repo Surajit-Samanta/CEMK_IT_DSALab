@@ -34,23 +34,41 @@ void display(struct Node *head) {
     printf("\n");
 }
 
-// Function to search for an element in the list
-int searchElement(struct Node *head, int key) {
-    int position = 1;
-    struct Node *current = head;
-    while (current != NULL) {
-        if (current->data == key) {
-            return position;
+// Function to swap the data of two nodes
+void swap(struct Node *a, struct Node *b) {
+    int temp = a->data;
+    a->data = b->data;
+    b->data = temp;
+}
+
+// Function to sort the singly linked list using Bubble Sort
+void bubbleSort(struct Node *head) {
+    int swapped;
+    struct Node *ptr1;
+    struct Node *lptr = NULL;
+
+    // Checking for empty list
+    if (head == NULL)
+        return;
+
+    do {
+        swapped = 0;
+        ptr1 = head;
+
+        while (ptr1->next != lptr) {
+            if (ptr1->data > ptr1->next->data) {
+                swap(ptr1, ptr1->next);
+                swapped = 1;
+            }
+            ptr1 = ptr1->next;
         }
-        current = current->next;
-        position++;
-    }
-    return -1; // Element not found
+        lptr = ptr1;
+    } while (swapped);
 }
 
 int main() {
     struct Node *head = NULL;
-    int n, data, key;
+    int n, data;
 
     // Input the number of elements in the list
     printf("Enter the number of elements in the list: ");
@@ -72,17 +90,16 @@ int main() {
         }
     }
 
-    // Input the element to search
-    printf("Enter the element to search: ");
-    scanf("%d", &key);
+    // Display the unsorted list
+    printf("Unsorted ");
+    display(head);
 
-    // Search for the element in the list
-    int position = searchElement(head, key);
-    if (position != -1) {
-        printf("Element found at position %d\n", position);
-    } else {
-        printf("Element not found in the list\n");
-    }
+    // Sort the list using Bubble Sort
+    bubbleSort(head);
+
+    // Display the sorted list
+    printf("Sorted ");
+    display(head);
 
     return 0;
 }
